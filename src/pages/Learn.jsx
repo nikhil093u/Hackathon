@@ -7,12 +7,12 @@ const resources = {
     {
       title: 'What is a Hackathon?',
       description: 'Learn what hackathons are and how they work.',
-      link: 'https://devpost.com/resources/hackathons',
+      link: 'https://en.wikipedia.org/wiki/Hackathon',
     },
     {
       title: 'How to Participate',
       description: 'Step-by-step guide to joining your first hackathon.',
-      link: 'https://www.freecodecamp.org/news/how-to-join-a-hackathon/',
+      link: 'https://www.geeksforgeeks.org/blogs/tips-and-tricks-to-crack-a-hackathon/',
     },
   ],
   'Frontend': [

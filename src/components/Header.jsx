@@ -1,7 +1,4 @@
-// src/components/Navbar.jsx
-import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import logo from "../assets/logo.png";
 
 const navigation = [
   { name: "Learn", to: "/learn" },
@@ -23,7 +20,7 @@ export default function Navbar() {
             <Link to="/" className="flex-shrink-0">
               <img
                 className="h-8 w-auto"
-                src="https://lh5.googleusercontent.com/43xqg9CDpuiYxlbjGX03RvYn-jjz3voW7zgUl5tXpUh4qOHvELn9NKoNLosmcyMu4F1YgdCvPJBJ8DMNyrPVZwIkQiLQsq6gTw3L7MLtTge-7G0Hg1Xxp4aTUXaA4wgpDwXl4zQwQTk=w16383"
+                src="https://lh6.googleusercontent.com/U_2WhOSWF4eRmkayRnCU3KQaeX0g8mNsNxAh9KhWuea9OQN8lhgybi5_lQC6-j0Vybcv0TWd6hicif2pGlrpUFQnTB3BakkRhCzl-JIkF_2eBqi0H7c1UdDo72by-C7z0Qm9H0VB0kU=w16383"
                 alt="Hackathon Logo"
                 style={{ borderRadius: "50%" }}
               />

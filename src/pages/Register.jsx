@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode}  from "jwt-decode";
 
 function Register() {
   const navigate = useNavigate();
@@ -16,16 +16,35 @@ function Register() {
     dob: null,
     phone: "",
   });
+  useEffect(() => {
+    if (userInfo) {
+      setFormdata((prev) => ({
+        ...prev,
+        fname: userInfo.given_name || "",
+        lname: userInfo.family_name || "",
+        address: userInfo.email || "",
+      }));
+    }
+  }, [userInfo]);
   const login = useGoogleLogin({
-    onSuccess: (tokenResponse) => {
-      const decoded = jwtDecode(tokenResponse.credential);
-      console.log("Google User:", decoded);
-      setUserInfo(decoded);
-    },
-    onError: () => {
-      console.log("Login Failed");
-    },
-  });
+  onSuccess: async (tokenResponse) => {
+    console.log('access_token:', tokenResponse.access_token);
+    const res = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: {
+        Authorization: `Bearer ${tokenResponse.access_token}`,
+      },
+    });
+
+    const profile = await res.json();
+    console.log('User profile:', profile);
+    setUserInfo(profile);
+  },
+  onError: (error) => {
+    console.error('Login Failed:', error);
+  },
+});
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormdata((prev) => ({
@@ -46,9 +65,7 @@ function Register() {
       dob: "",
       phone: "",
     });
-    navigate("/dashboard",{
-      state:{fname: formData.fname, lname:formData.lname}
-    });
+    navigate("/learn");
   };
 
   return (
@@ -111,7 +128,7 @@ function Register() {
 
               <div>
                 <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  Address
+                  Email
                 </label>
                 <input
                   type="text"

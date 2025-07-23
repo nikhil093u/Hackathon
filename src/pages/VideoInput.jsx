@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function VideoInput({ width, height }) {
+export default function VideoInput({ width, height, onVideoSelect}) {
   const inputRef = React.useRef();
   const [source, setSource] = React.useState(null);
 
@@ -9,6 +9,9 @@ export default function VideoInput({ width, height }) {
     if (file) {
       const url = URL.createObjectURL(file);
       setSource(url);
+      if(onVideoSelect){
+        onVideoSelect(file)
+      }
     }
   };
 
@@ -31,7 +34,7 @@ export default function VideoInput({ width, height }) {
       {!source && (
         <button
           onClick={handleChoose}
-          className="w-full py-3 px-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
+          className="w-full py-2 px-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
           type="button"
         >
           Choose video file
@@ -50,7 +53,7 @@ export default function VideoInput({ width, height }) {
       )}
 
       {/* Footer text */}
-      <div className="mt-2 text-gray-600 text-sm min-h-[1.25rem]">
+      <div className="mt-1 text-gray-600 text-sm min-h-[1.25rem]">
         {!source ? "No file chosen" : "Video ready to submit"}
       </div>
     </div>

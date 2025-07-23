@@ -2,7 +2,6 @@ import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGoogleLogin } from "@react-oauth/google";
-import {jwtDecode}  from "jwt-decode";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ function Register() {
     lname: "",
     address: "",
     gender: "",
-    dob: null,
+    dob: "",
     phone: "",
   });
   useEffect(() => {
@@ -80,7 +79,8 @@ function Register() {
         </button>
       </div>
       <form onSubmit={submitData}>
-        <div className="flex-grow flex items-center justify-center bg-gradient-to-br from-purple-700 to-blue-300 py-3">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-700 to-blue-300">
+
 
           <div
             className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-5  backdrop-blur-lg bg-opacity-95"

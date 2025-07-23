@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 
 export default function Hackathons() {
   const [hackathons, setHackathons] = useState([]);
-
   const [now, setNow] = useState(new Date());
 
-  // Update current time every second
   useEffect(() => {
     const interval = setInterval(() => {
       setNow(new Date());
@@ -19,19 +17,16 @@ export default function Hackathons() {
 
   const handleAddHackathon = (e) => {
     e.preventDefault();
-
     if (!name.trim() || !date.trim()) {
       alert("Please provide both a hackathon name and date.");
       return;
     }
-
     const newHackathon = {
       id: hackathons.length + 1,
       name: name.trim(),
       date,
       description: description.trim(),
     };
-
     setHackathons([...hackathons, newHackathon]);
     setName("");
     setDate("");
@@ -41,7 +36,6 @@ export default function Hackathons() {
   const getTimeRemaining = (targetDate) => {
     const endTime = new Date(targetDate).getTime();
     const timeLeft = endTime - now.getTime();
-
     if (timeLeft <= 0) return "Ended";
 
     const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -53,8 +47,8 @@ export default function Hackathons() {
   };
 
   return (
-    <div className="min-h-full my-6 max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md ">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800 cursor-default">
+    <div className="min-h-full my-6 max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-md rounded-md">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 cursor-default">
         Hackathons
       </h2>
 
@@ -62,9 +56,9 @@ export default function Hackathons() {
         {hackathons.map((hackathon) => (
           <li
             key={hackathon.id}
-            className="p-4 border border-gray-200 rounded-md hover:shadow-lg transition cursor-pointer"
+            className="p-5 sm:p-4 border border-gray-200 rounded-md hover:shadow-lg transition cursor-pointer touch-manipulation"
           >
-            <h3 className="text-xl font-semibold text-indigo-600">
+            <h3 className="text-lg sm:text-xl font-semibold text-indigo-600">
               {hackathon.name}
             </h3>
             <p className="text-gray-600 italic">Date: {hackathon.date}</p>
@@ -81,7 +75,7 @@ export default function Hackathons() {
         ))}
       </ul>
 
-      <h3 className="text-2xl font-semibold mb-4 text-gray-800 cursor-default">
+      <h3 className="text-xl sm:text-2xl font-semibold mb-4 text-gray-800 cursor-default">
         Add a New Hackathon
       </h3>
       <form onSubmit={handleAddHackathon} className="space-y-4">
@@ -120,7 +114,7 @@ export default function Hackathons() {
         </div>
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+          className="w-full sm:w-auto bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
         >
           Add Hackathon
         </button>

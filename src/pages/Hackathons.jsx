@@ -1,21 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export default function Hackathons() {
-  const [hackathons, setHackathons] = useState([
-    {
-      id: 1,
-      name: "Summer Hackathon 2025",
-      date: "2025-08-15",
-      description: "A 48-hour coding marathon focusing on sustainability apps.",
-    },
-    {
-      id: 2,
-      name: "AI Challenge",
-      date: "2025-09-10",
-      description:
-        "Hackathon centered on artificial intelligence and machine learning.",
-    },
-  ]);
+  const [hackathons, setHackathons] = useState([]);
 
   const [now, setNow] = useState(new Date());
 

@@ -1,37 +1,21 @@
 import React, { useState } from "react";
 
 export default function Teams() {
-  const [teams, setTeams] = useState([
-    { id: 1, name: "Team Alpha", members: ["Alice", "Bob"] },
-    { id: 2, name: "Team Beta", members: ["Charlie", "Dave"] },
-  ]);
+  const [teams, setTeams] = useState([]);
+  const [teamName,setTeamName]=useState("");
+  const [members,setMembers]=useState("");
 
-  const [teamName, setTeamName] = useState("");
-  const [members, setMembers] = useState("");
-
-  const handleAddTeam = (e) => {
+  const handleAddTeam=(e)=>{
     e.preventDefault();
-
-    if (!teamName.trim()) {
-      alert("Team name is required");
-      return;
+    const newTeam={
+      id:Date.now(),
+      name:teamName,
+      members:members.split(",").map((m)=>m.trim()).filter((m)=>m!=="")
     }
-
-    const membersArray = members
-      .split(",")
-      .map((m) => m.trim())
-      .filter(Boolean);
-
-    const newTeam = {
-      id: teams.length + 1,
-      name: teamName.trim(),
-      members: membersArray,
-    };
-
-    setTeams([...teams, newTeam]);
-    setTeamName("");
-    setMembers("");
-  };
+    setTeams((prev)=>[...prev,newTeam])
+  setMembers("")
+  setTeamName("")
+  }
 
   return (
     <div className="min-h-full my-6 max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md ">

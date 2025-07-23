@@ -65,7 +65,7 @@ function Register() {
       dob: "",
       phone: "",
     });
-    navigate("/learn");
+    navigate("/learn  ");
   };
 
   return (

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { useGoogleLogin } from "@react-oauth/google";
 
-function Register() {
+export default function Register() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
   const [submittedData, setSubmittedData] = useState(null);
@@ -68,140 +68,149 @@ function Register() {
   };
 
   return (
-    <>
-      <div className="absolute top-18 right-4 z-16">
+    <div className="relative min-h-screen bg-gray-50 flex flex-col items-center justify-center pt-20 px-4 py-20">
+      {/* Google Login Button - Top right only for large screens */}
+      <div className="hidden lg:block absolute top-20 right-6 z-10">
         <button
           type="button"
           onClick={login}
-          className="block text-lg font-semibold text-gray-700 bg-white px-4 py-1 rounded-full shadow-lg flex items-center space-x-3 hover:shadow-xl transition-all duration-200 transform hover:scale-105 will-change-transform cursor-pointer"
+          className="text-sm font-medium text-gray-700 bg-white px-6 py-3 rounded-full shadow-xl hover:shadow-xl transition-all duration-200 transform hover:scale-105"
         >
           Login With Google
         </button>
       </div>
-      <form onSubmit={submitData}>
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-700 to-blue-300">
 
+      {/* Registration Form */}
+      <form onSubmit={submitData} className="w-full max-w-lg">
+        <div
+          className="bg-white rounded-3xl shadow-md p-8 backdrop-blur-lg bg-opacity-95"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%)",
+            backdropFilter: "blur(20px)",
+            border: "1px solid rgba(255,255,255,0.2)",
+          }}
+        >
+          <h1 className="text-2xl font-bold text-center mb-2  bg-gradient-to-r from-purple-700 to-blue-300 bg-clip-text text-transparent">
+            Registration Here
+          </h1>
 
-          <div
-            className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-5  backdrop-blur-lg bg-opacity-95"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 100%)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255,255,255,0.2)",
-            }}
-          >
-            <h1 className="text-2xl font-bold text-center mb-1 bg-gradient-to-r from-purple-700 to-blue-300 bg-clip-text text-transparent">
-              User Registration
-            </h1>
-
-            <div className="space-y-2">
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  First Name
-                </label>
-                <input
-                  type="text"
-                  name="fname"
-                  placeholder="Enter your first name"
-                  value={formData.fname}
-                  onChange={handleChange}
-                  required
-                  className="w-full text-sm px-4 py-0.75 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white text-gray-700"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  name="lname"
-                  placeholder="Enter your last name"
-                  value={formData.lname}
-                  onChange={handleChange}
-                  required
-                  className="w-full text-sm px-4 py-0.75 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white text-gray-700"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  Email
-                </label>
-                <input
-                  type="text"
-                  name="address"
-                  required
-                  placeholder="Enter your complete address"
-                  value={formData.address}
-                  onChange={handleChange}
-                  className="w-full text-sm px-4 py-0.75 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white text-gray-700"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  Gender
-                </label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  required
-                  className="w-full text-sm px-4 py-0.75 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white text-gray-700"
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="something else">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  Date of Birth
-                </label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={formData.dob || ""}
-                  onChange={handleChange}
-                  required
-                  className="w-full text-sm px-4 py-0.75 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white text-gray-700"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-2">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  pattern="[0-9]{10}"
-                  maxLength={10}
-                  required
-                  placeholder="Enter your phone number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full text-sm px-4 py-0.75 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white text-gray-700"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-purple-700 to-blue-300 text-white font-bold py-2 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105  will-change-transform hover:from-purple-700 hover:to-red-300 text-lg"
-              >
-                Submit
-              </button>
+          <div className="space-y-2">
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                First Name
+              </label>
+              <input
+                type="text"
+                name="fname"
+                placeholder="Enter your first name"
+                value={formData.fname}
+                onChange={handleChange}
+                required
+                className="w-full text-sm px-4 py-1 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none bg-gray-50 focus:bg-white text-gray-700"
+              />
             </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Last Name
+              </label>
+              <input
+                type="text"
+                name="lname"
+                placeholder="Enter your last name"
+                value={formData.lname}
+                onChange={handleChange}
+                required
+                className="w-full text-sm px-4 py-1 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none bg-gray-50 focus:bg-white text-gray-700"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Email
+              </label>
+              <input
+                type="email"
+                name="address"
+                required
+                placeholder="Enter your email"
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full text-sm px-4 py-1 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none bg-gray-50 focus:bg-white text-gray-700"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Gender
+              </label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                required
+                className="w-full text-sm px-4 py-1 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none bg-gray-50 focus:bg-white text-gray-700"
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="something else">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Date of Birth
+              </label>
+              <input
+                type="date"
+                name="dob"
+                value={formData.dob || ""}
+                onChange={handleChange}
+                required
+                className="w-full text-sm px-4 py-1 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none bg-gray-50 focus:bg-white text-gray-700"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                pattern="[0-9]{10}"
+                maxLength={10}
+                required
+                placeholder="Enter your phone number"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full text-sm px-4 py-1 rounded-xl border-2 border-gray-200 focus:border-purple-500 focus:outline-none bg-gray-50 focus:bg-white text-gray-700"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold py-2 px-6 rounded-xl shadow-lg  text-lg"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </form>
-    </>
+
+      {/* Google Login Button - Shown below form only on small/medium screens */}
+      <div className="block lg:hidden mt-6 w-full max-w-sm flex justify-center my-20">
+        <button
+          type="button"
+          onClick={login}
+          className="w-full sm:w-auto text-sm font-medium text-gray-700 bg-white px-6 py-3 rounded-full shadow-md hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+        >
+          Login With Google
+        </button>
+      </div>
+    </div>
   );
 }
 
-export default Register;

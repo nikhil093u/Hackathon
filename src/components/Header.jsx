@@ -1,131 +1,96 @@
 import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { Menu, X, Code, Zap } from "lucide-react";
 
-const navigation = [
-  { name: "Learn", to: "/learn" },
+const mainLinks = [
+  { name: "Events", to: "/events" },
   { name: "Teams", to: "/teams" },
-  { name: "Hackathons", to: "/hackathons" },
+  // { name: "Hackathons", to: "/hackathons" }
+  {name: "Leaderboard", to: "/leaderboard"},
   { name: "Submission", to: "/submission" },
+  { name: "Admin", to: "/admin" }
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-
-export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-gray-800 sticky top-0 z-50">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0">
-              <img
-                className="h-8 w-auto rounded-full"
-                src="https://lh6.googleusercontent.com/U_2WhOSWF4eRmkayRnCU3KQaeX0g8mNsNxAh9KhWuea9OQN8lhgybi5_lQC6-j0Vybcv0TWd6hicif2pGlrpUFQnTB3BakkRhCzl-JIkF_2eBqi0H7c1UdDo72by-C7z0Qm9H0VB0kU=w16383"
-                alt="Hackathon Logo"
-              />
-            </Link>
-            <div className="hidden md:flex ml-10 space-x-4">
-              {navigation.map((item) => (
-                <NavLink
-                  key={item.name}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    classNames(
-                      isActive
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
-                    )
-                  }
-                >
-                  {item.name}
-                </NavLink>
-              ))}
-            </div>
-          </div>
+    <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
 
-          <div className="flex items-center">
-            <Link
-              to="/register"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-            >
-              Register Here
-            </Link>
 
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="ml-2 inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white md:hidden"
-              aria-controls="mobile-menu"
-              aria-expanded={mobileMenuOpen}
-            >
-              <span className="sr-only">Open main menu</span>
-              {!mobileMenuOpen ? (
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              ) : (
-                // Close Icon
-                <svg
-                  className="block h-6 w-6"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Mobile menu, show/hide based on menu state */}
-      {mobileMenuOpen && (
-        <div className="md:hidden" id="mobile-menu">
-          <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            {navigation.map((item) => (
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <Link to="/" className="flex items-center space-x-2">
+            <img
+              src="https://lh3.googleusercontent.com/noa-2TQslgxjmC3CgtAAaT952-KtrCOGC7epLa7XfKI_xVcnxd045Dr3ePAzJfwIA8VxBHWjYb-W3nSXncw9SK39jJMPvx-xufm4f73zZPiRy2jbcH3U4Tv_dyv6-LxQjXMEBP5Qnso=w16383"
+              alt="HackStream Logo"
+              className="h-8 w-auto rounded-full cursor-pointer"
+            />
+          </Link>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            {[...mainLinks].map((item) => (
               <NavLink
                 key={item.name}
                 to={item.to}
-                onClick={() => setMobileMenuOpen(false)} // close menu on link click
                 className={({ isActive }) =>
-                  classNames(
-                    isActive
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )
+                  `text-muted-foreground hover:text-foreground transition-colors ${
+                    isActive ? "font-semibold text-foreground" : ""
+                  }`
                 }
               >
                 {item.name}
               </NavLink>
             ))}
           </div>
+
+          {/* Desktop Buttons */}
+          <div className="hidden md:flex items-center space-x-4">
+            <Link to="/register">
+              <button className="text-sm px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-md">
+                Register Now
+              </button>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-md text-muted-foreground hover:text-foreground"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
+          </button>
         </div>
-      )}
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-border">
+            <div className="flex flex-col space-y-4">
+              {[...mainLinks, ].map((item) => (
+                <NavLink
+                  key={item.name}
+                  to={item.to}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {item.name}
+                </NavLink>
+              ))}
+              <div className="flex flex-col space-y-2 pt-4 border-t border-border">
+                <Link to="/register" onClick={() => setIsMenuOpen(false)}>
+                  <button className="w-full text-sm px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white rounded-md">
+                    Register Now
+                  </button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </nav>
   );
 }

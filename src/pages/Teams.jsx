@@ -1,24 +1,61 @@
-import React, { useState } from "react";
+import  { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Teams() {
   const [teams, setTeams] = useState([]);
-  const [teamName,setTeamName]=useState("");
-  const [members,setMembers]=useState("");
+  const [teamName, setTeamName] = useState("");
+  const [leaderName, setLeaderName] = useState("");
+  const [joinerName, setJoinerName] = useState("");
+  const [joinTeamId, setJoinTeamId] = useState("");
 
-  const handleAddTeam=(e)=>{
+  const handleCreateTeam = (e) => {
     e.preventDefault();
-    const newTeam={
-      id:Date.now(),
-      name:teamName,
-      members:members.split(",").map((m)=>m.trim()).filter((m)=>m!=="")
+    const newTeam = {
+      id: uuidv4(),
+      name: teamName,
+      members: [leaderName]
     }
-    setTeams((prev)=>[...prev,newTeam])
-  setMembers("")
-  setTeamName("")
+    setTeams((prev) => [...prev, newTeam]);
+    setTeamName("");
+    setLeaderName("");
+    alert(`Team created! Share this Team ID: ${newTeam.id}`);
+  };
+  const handleJoinTeam = (e) => {
+  e.preventDefault();
+
+  if (!joinTeamId || !joinerName) return;
+
+  const teamIndex = teams.findIndex((t) => t.id === joinTeamId.trim());
+  if (teamIndex === -1) {
+    alert("Team ID not found. Please check and try again.");
+    return;
   }
 
+  if (teams[teamIndex].members.includes(joinerName.trim())) {
+    alert("Member already in team.");
+    return;
+  }
+
+  const updatedTeams = teams.map((team, index) => {
+    if (index === teamIndex) {
+      return {
+        ...team,
+        members: [...team.members, joinerName.trim()],
+      };
+    }
+    return team;
+  });
+
+  setTeams(updatedTeams);
+
+  setJoinTeamId("");
+  setJoinerName("");
+  alert(`You have successfully joined team: ${teams[teamIndex].name}`);
+};
+
+
   return (
-    <div className="min-h-full my-6 max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md ">
+    <div className="min-h-screen my-20 max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md ">
       <h2 className="text-3xl font-bold mb-6 text-gray-800 cursor-default">
         Teams
       </h2>
@@ -37,10 +74,8 @@ export default function Teams() {
         ))}
       </ul>
 
-      <h3 className="text-2xl font-semibold mb-4 text-gray-800 cursor-default">
-        Add a New Team
-      </h3>
-      <form onSubmit={handleAddTeam} className="space-y-4">
+      <h3 className="text-2xl font-semibold mb-4 text-gray-800">Create a New Team</h3>
+      <form onSubmit={handleCreateTeam} className="space-y-4 mb-10">
         <div>
           <label className="block mb-1 font-medium text-gray-700">
             Team Name:
@@ -50,30 +85,68 @@ export default function Teams() {
             value={teamName}
             onChange={(e) => setTeamName(e.target.value)}
             required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Enter team name"
+            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <div>
           <label className="block mb-1 font-medium text-gray-700">
-            Members (comma separated):
+            Your Name (Team Leader):
           </label>
           <input
             type="text"
-            value={members}
-            onChange={(e) => setMembers(e.target.value)}
+            value={leaderName}
+            onChange={(e) => setLeaderName(e.target.value)}
             required
-            placeholder="Alice, Bob, Charlie"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Your name"
+            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <button
           type="submit"
-          className="bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+          className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600  text-white px-6 py-2 rounded-md"
         >
-          Add Team
+          Create Team
+        </button>
+      </form>
+
+      {/* Join Existing Team Form */}
+      <h3 className="text-2xl font-semibold mb-4 text-gray-800">Join a Team</h3>
+      <form onSubmit={handleJoinTeam} className="space-y-4">
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">
+            Team ID:
+          </label>
+          <input
+            type="text"
+            value={joinTeamId}
+            onChange={(e) => setJoinTeamId(e.target.value)}
+            required
+            placeholder="Paste team ID here"
+            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <div>
+          <label className="block mb-1 font-medium text-gray-700">
+            Your Name:
+          </label>
+          <input
+            type="text"
+            value={joinerName}
+            onChange={(e) => setJoinerName(e.target.value)}
+            required
+            placeholder="Your name"
+            className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+        <button
+          type="submit"
+          className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600  text-white px-6 py-2 rounded-md"
+        >
+          Join Team
         </button>
       </form>
     </div>
   );
 }
+

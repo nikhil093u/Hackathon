@@ -20,7 +20,7 @@ export default function VideoInput({ width, height, onVideoSelect}) {
   };
 
   return (
-    <div className="w-full" style={{ maxWidth: width }}>
+    <div className="w-full">
       {/* Hidden file input */}
       <input
         ref={inputRef}
@@ -34,7 +34,7 @@ export default function VideoInput({ width, height, onVideoSelect}) {
       {!source && (
         <button
           onClick={handleChoose}
-          className="w-full py-2 px-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
+          className="w-full py-1 px-1 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600  text-white rounded-md hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
           type="button"
         >
           Choose video file
@@ -53,7 +53,7 @@ export default function VideoInput({ width, height, onVideoSelect}) {
       )}
 
       {/* Footer text */}
-      <div className="mt-1 text-gray-600 text-sm min-h-[1.25rem]">
+      <div className="py-1 px-1 text-gray-600 text-center text-sm min-h-[1.25rem]">
         {!source ? "No file chosen" : "Video ready to submit"}
       </div>
     </div>

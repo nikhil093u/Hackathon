@@ -47,16 +47,16 @@ export default function Hackathons() {
   };
 
   return (
-    <div className="min-h-full my-6 max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-md rounded-md">
+    <div className="min-h-full my-30 max-w-4xl mx-auto p-4 sm:p-6 bg-white shadow-md rounded-md cursor-default">
       <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800 cursor-default">
         Hackathons
       </h2>
 
-      <ul className="mb-8 space-y-6">
+      <ul className="mb-8 space-y-6 cursor-default">
         {hackathons.map((hackathon) => (
           <li
             key={hackathon.id}
-            className="p-5 sm:p-4 border border-gray-200 rounded-md hover:shadow-lg transition cursor-pointer touch-manipulation"
+            className="p-5 sm:p-4 border border-gray-200 rounded-md hover:shadow-lg transition cursor-pointer touch-manipulation cursor-default"
           >
             <h3 className="text-lg sm:text-xl font-semibold text-indigo-600">
               {hackathon.name}
@@ -114,7 +114,7 @@ export default function Hackathons() {
         </div>
         <button
           type="submit"
-          className="w-full sm:w-auto bg-indigo-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
+          className="w-full sm:w-auto bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-6 py-2 rounded-md hover:bg-indigo-700 transition"
         >
           Add Hackathon
         </button>
